@@ -1,68 +1,113 @@
+@font-face {
+    font-family: "Inconsolata Bold";
+    src: url('./assets/fonts/static/Inconsolata-Bold.ttf');
+}
+
+@font-face {
+    font-family: "Inconsolata Extra Bold";
+    src: url('./assets/fonts/static/Inconsolata-ExtraBold.ttf');
+}
+
+@font-face {
+    font-family: "Inconsolata Medium";
+    src: url('./assets/fonts/static/Inconsolata-Medium.ttf');
+}
+
+@font-face {
+    font-family: "Inconsolata Regular";
+    src: url('./assets/fonts/static/Inconsolata-Regular.ttf');
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    --neutral-0: hsl(0, 0%, 100%);
+    --neutral-300: hsl(252, 6%, 83%);
+    --neutral-500: hsl(245, 15%, 58%);
+    --neutral-700: hsl(245, 19%, 35%);
+    --neutral-900: hsl(248, 70%, 10%);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    --orange-500: hsl(7, 88%, 67%);
+    --orange-700: hsl(7, 71%, 60%);
+
+    --text-gradient: linear-gradient(hsl(7, 86%, 67%), hsl(0, 0%, 100%));
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+html {
+    font-size: 16px;
 }
-a:hover {
-  color: #535bf2;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    min-height: 100vh;
+    font-family: 'Inconsolata Bold', sans-serif;
+    background-color: var(--neutral-900);
+    background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"), url("/pattern-squiggly-line-bottom-mobile-tablet.svg"), url("/pattern-squiggly-line-top.svg");
+    background-repeat: no-repeat,no-repeat, no-repeat, no-repeat;
+     background-position:
+    center center,
+    right center,
+    left bottom,
+    right top;
+    color: var(--neutral-0);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#root{
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 60rem;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+li{
+    list-style: none;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+a{
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--neutral-0);
+}
+
+h2{
+    margin-bottom: 0.5rem;
+}
+
+button{
+    cursor: pointer;
+    font-family: 'Inconsolata Bold', sans-serif;
+    font-size: 1rem;
+}
+
+.transparent-btn{
+    background-color: transparent;
+    border:0;
+    color: var(--gray-500);
+    text-align: left;
+    padding: 0;
+    border-radius: 0.3rem;
+}
+
+.transparent-btn:hover, .transparent-btn:focus{
+    color: var(--blue-950);
+}
+.transparent-btn:active{
+    opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a, button {
+    transition: all 0.3s ease-out;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+@media screen and (width >= 52rem){
+    body{
+        padding: 2rem;
+    }
 }
