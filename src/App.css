@@ -1,23 +1,94 @@
+.header{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.header p{
+    color: var(--neutral-300);
+}
+
 form{
     display: flex;
     flex-direction: column;
 }
 
-#drop-zone {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  width: 500px;
-  max-width: 100%;
-  height: 200px;
-  padding: 1em;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  color: slategray;
-  cursor: pointer;
+.input-note{
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 0.5rem;
+    color: var(--neutral-300);
+    font-size: 0.8rem;
+    align-items: center;
 }
 
 .error-text{
     color: var(--orange-700);
+}
+
+.input-label{
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+.error-logo{
+    filter: invert(35%) sepia(89%) saturate(2947%) hue-rotate(339deg) brightness(109%) contrast(127%);
+}
+
+.text-input {
+    height: 2.5rem;
+    cursor: pointer;
+    border-radius: 0.3rem;
+    border: 0.15rem solid var(--neutral-500);
+    background-color: var(--black-03);
+    font-family: 'Inconsolata Bold', sans-serif;
+    color: var(--neutral-300);
+}
+
+.text-input.text-input__error{
+    border-color: var(--orange-700);
+}
+.text-input:hover{
+    background-color: var(--black-05);
+}
+
+.text-input:focus{
+    cursor: auto;
+}
+
+.generate-btn{
+    font-family: "Inconsolata Extra Bold", sans-serif;
+    background-color: var(--orange-500);
+    border:0;
+    color: var(--neutral-900);
+    text-align: left;
+    padding: 0;
+    border-radius: 0.3rem;
+    height: 2.5rem;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.generate-btn:hover, .generate-btn:focus{
+    opacity: 0.6;
+}
+.generate-btn:active{
+    opacity: 0.6;
+}
+
+.transparent-btn{
+    background-color: transparent;
+    border:0;
+    padding: 0;
+}
+
+.transparent-btn:hover, .transparent-btn:focus{
+    opacity: 0.6;
+}
+
+.transparent-btn:active{
+    opacity: 0.4;
 }

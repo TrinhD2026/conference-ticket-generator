@@ -28,6 +28,8 @@
 
     --orange-500: hsl(7, 88%, 67%);
     --orange-700: hsl(7, 71%, 60%);
+    --black-03: rgba(100, 100, 100, 0.3);
+    --black-05: rgba(100, 100, 100, 0.5);
 
     --text-gradient: linear-gradient(hsl(7, 86%, 67%), hsl(0, 0%, 100%));
 }
@@ -50,7 +52,7 @@ body {
     background-color: var(--neutral-900);
     background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"), url("/pattern-squiggly-line-bottom-mobile-tablet.svg"), url("/pattern-squiggly-line-top.svg");
     background-repeat: no-repeat,no-repeat, no-repeat, no-repeat;
-     background-position:
+    background-position:
     center center,
     right center,
     left bottom,
@@ -62,6 +64,7 @@ body {
     padding: 2rem;
     border-radius: 1rem;
     max-width: 60rem;
+    margin: 0 auto;
 }
 
 li{
@@ -83,22 +86,6 @@ button{
     cursor: pointer;
     font-family: 'Inconsolata Bold', sans-serif;
     font-size: 1rem;
-}
-
-.transparent-btn{
-    background-color: transparent;
-    border:0;
-    color: var(--gray-500);
-    text-align: left;
-    padding: 0;
-    border-radius: 0.3rem;
-}
-
-.transparent-btn:hover, .transparent-btn:focus{
-    color: var(--blue-950);
-}
-.transparent-btn:active{
-    opacity: 0.6;
 }
 
 @media (prefers-reduced-motion: no-preference) {
