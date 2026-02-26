@@ -1,13 +1,15 @@
 import {useState,useRef} from 'react';
 import './App.css';
 import FileUploader from './components/FileUploader';
+import Ticket from './components/Ticket';
 
 function App() {
     const [filePath,setFilePath]=useState("");
+
+    const [ticketValid,setTicketValid]=useState(false);
     const [fullname,setFullname]=useState("");
     const [email,setEmail]=useState("");
     const [gitName,setGitName]=useState("");
-    const [fileNote,setFileNote]=useState("Upload your photo (JPG or PNG, max size: 500KB).");
     const [fileError,setFileError]=useState("");
     const [nameError,setNameError]=useState("");
     const [emailError,setEmailError]=useState("");
@@ -15,19 +17,23 @@ function App() {
 
     const generateBtn=useRef(null);
 
+    const fileInstruction="Upload your photo (JPG or PNG, max size: 500KB).";
+    const emailPattern=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const gitNamePattern=/^[@]?[a-zA-Z0-9-]*$/;
+
     function validateForm() {
         let results={
             "filePath":false,
-            "firstName": false,
+            "fullName": false,
             "email": false,
             "gitName": false,
         };
-        setFileNote("");
+
         if(!filePath.trim()) {
             setFileError("Please select your avatar");
         }
         else {
-            setFileError("");
+            results["filePath"]=true;
         }
 
         if(!fullname.trim()) {
@@ -35,27 +41,29 @@ function App() {
         }
         else {
             setNameError("");
+            results["fullName"]=true;
         }
 
-        if(!email.trim()) {
+        if(!email.trim()||!emailPattern.test(email.trim())) {
             setEmailError("Please enter a valid email");
         }
         else {
             setEmailError("");
+            results["email"]=true;
         }
 
-        if(!gitName.trim()) {
-            setGitNameError("Please enter your git username");
+        if(!gitName.trim()||!gitNamePattern.test(gitName.trim())) {
+            setGitNameError("Please enter a valid git username");
         }
         else {
             setGitNameError("");
+            results["gitName"]=true;
         }
 
         return results;
     }
 
     function isValid(objs) {
-
         for(const property in objs) {
             let isValid=objs[property];
             if(!isValid)
@@ -68,84 +76,86 @@ function App() {
     function handleGenerateTicket(e) {
         e.preventDefault();
         generateBtn.current.blur();
-        if(!isValid(validateForm())) {
-            return;
-        }
-
+        setTicketValid(isValid(validateForm()));
     }
 
     return (
         <>
             <div className="header">
-                <img src="/logo-full.svg" alt="logo" />
-                <h1>Your Journey to Coding Conf 2025 Starts Here!</h1>
-                <p>Secure your spot at next year's biggest coding conference.</p>
+                <h1><img src="/logo-full.svg" alt="logo" /></h1>
+                {!ticketValid&&
+                <>
+                    <h2>Your Journey to Coding Conf 2025 Starts Here!</h2>
+                    <p>Secure your spot at next year's biggest coding conference.</p>
+                </>}
+                {ticketValid&&
+                <>
+                    <h2>Congrats, <span className="congrat-fullname">{fullname}!</span> your ticket is ready.</h2>
+                    <p>We've emailed your ticket to <span className="congrat-email">{email}</span> and will send updates in the run up to the event</p>
+                </>}
             </div>
-            <form>
-                <label className="input-label" htmlFor="drop-zone">Upload Avatar</label>
-                {/*<label className="drop-zone">*/}
-                {/*    Drop and drag or click to upload*/}
-                {/*    <input type="file"*/}
-                {/*        className="input-file"*/}
-                {/*        id="image_upload"*/}
-                {/*        name="image_upload"*/}
-                {/*        accept=".jpg, .png" />*/}
-                {/*    <img src="icon-upload.svg" alt="upload icon"/>*/}
-                {/*</label>*/}
-                <FileUploader/>
-                {
-                    fileNote!==""&&
-                    <div className="input-note">
-                        <img src="/icon-info.svg" alt="info icon" />
-                        <p>{fileNote}</p>
-                    </div>
-                }
-                {
-                    fileError!==""&&
-                    <div className="input-note">
-                        <img className="error-logo" src="/icon-info.svg" alt="info icon" />
-                        <p className="error-text">{fileError}</p>
-                    </div>
-                }
 
-                <label className="input-label" htmlFor="input__full-name">Full Name</label>
-                <input type="text" className={nameError? `text-input text-input__error`:"text-input"} id="input__full-name"
-                    value={fullname}
-                    onChange={(e) => setFullname(e.target.value)} />
-                {
-                    nameError!==""&&
-                    <div className="input-note">
-                        <img className="error-logo" src="/icon-info.svg" alt="info icon" />
-                        <p className="error-text">{nameError}</p>
-                    </div>
-                }
+            {ticketValid&&<Ticket email={email} fullname={fullname} gitName={gitName} />}
+            {!ticketValid&&
+                <form>
+                    <FileUploader setAvatarUrl={setFilePath} setFileError={setFileError} />
+                    {
+                        fileError!==""&&
+                        <div className="input-note">
+                            <img className="error-logo" src="/icon-info.svg" alt="info icon" />
+                            <p className="error-text">{fileError}</p>
+                        </div>
+                    }
+                    {
+                        fileError===""&&filePath===""&&
+                        <div className="input-note">
+                            <img src="/icon-info.svg" alt="info icon" />
+                            <p>{fileInstruction}</p>
+                        </div>
+                    }
 
-                <label className="input-label" htmlFor="input__email">Email Address</label>
-                <input type="email" className={emailError? `text-input text-input__error`:"text-input"} id="input__email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} />
-                {
-                    emailError!==""&&
-                    <div className="input-note">
-                        <img className="error-logo" src="/icon-info.svg" alt="info icon" />
-                        <p className="error-text">{emailError}</p>
-                    </div>
-                }
+                    <label className="input-label" htmlFor="input__full-name">Full Name</label>
+                    <input type="text" className={nameError? `text-input text-input__error`:"text-input"} id="input__full-name"
+                        value={fullname}
+                        onChange={(e) => setFullname(e.target.value)} />
+                    {
+                        nameError!==""&&
+                        <div className="input-note">
+                            <img className="error-logo" src="/icon-info.svg" alt="info icon" />
+                            <p className="error-text">{nameError}</p>
+                        </div>
+                    }
 
-                <label className="input-label" htmlFor="input__github-username">Github Username</label>
-                <input type="text" className={gitNameError? `text-input text-input__error`:"text-input"} id="input__github-username"
-                    value={gitName}
-                    onChange={(e) => setGitName(e.target.value)} />
-                {
-                    gitNameError!==""&&
-                    <div className="input-note">
-                        <img className="error-logo" src="/icon-info.svg" alt="info icon" />
-                        <p className="error-text">{gitNameError}</p>
-                    </div>
-                }
+                    <label className="input-label" htmlFor="input__email">Email Address</label>
+                    <input type="email" className={emailError? `text-input text-input__error`:"text-input"} id="input__email"
+                        value={email}
+                        placeholder="example@email.com"
+                        onChange={(e) => setEmail(e.target.value)} />
+                    {
+                        emailError!==""&&
+                        <div className="input-note">
+                            <img className="error-logo" src="/icon-info.svg" alt="info icon" />
+                            <p className="error-text">{emailError}</p>
+                        </div>
+                    }
 
-                <button ref={generateBtn} className="generate-btn" type="submit" id="submit-btn" onClick={handleGenerateTicket}>Generate My Ticket</button>
-            </form>
+                    <label className="input-label" htmlFor="input__github-username">Github Username</label>
+                    <input type="text" className={gitNameError? `text-input text-input__error`:"text-input"} id="input__github-username"
+                        value={gitName}
+                        placeholder="@gitusername"
+                        onChange={(e) => setGitName(e.target.value)} />
+                    {
+                        gitNameError!==""&&
+                        <div className="input-note">
+                            <img className="error-logo" src="/icon-info.svg" alt="info icon" />
+                            <p className="error-text">{gitNameError}</p>
+                        </div>
+                    }
+
+                    <button ref={generateBtn} className="generate-btn" type="submit" id="submit-btn" onClick={handleGenerateTicket}>Generate My Ticket</button>
+                </form>
+            }
+           
         </>
     )
 }

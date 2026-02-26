@@ -11,6 +11,11 @@
     color: var(--neutral-300);
 }
 
+input{
+  font-size:1rem;
+    font-family: 'Inconsolata Bold', sans-serif;
+}
+
 form{
     display: flex;
     flex-direction: column;

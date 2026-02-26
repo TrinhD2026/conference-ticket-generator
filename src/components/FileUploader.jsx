@@ -1,13 +1,13 @@
 import {useState} from "react";
 import './FileUploader.css'
 
-let UploadStatus='idle'|'uploading'|'success'|'error';
-export default function FileUploader() {
+export default function FileUploader({setAvatarUrl=null, setFileError=null}) {
     const [file,setFile]=useState(null);
     const [fileUrl,setFileUrl]=useState("");
     console.log("reloading..........");
 
-    const typePattern=/.*(jpg|jpeg|png)$/;
+    const typePattern=/^[a-zA-Z0-9]*(.)(jpg|jpeg|png)$/;
+
     function handleFileChange(e) {
         console.log("file handling");
         if(e.target.files.length>0) {
@@ -15,19 +15,24 @@ export default function FileUploader() {
             e.target.value=null;
 
             if(!typePattern.test(fileSample.type)) {
-                console.log("file type is not correct");
+                console.log("File type is not correct");
+                setFileError("File type is not correct!");
                 removeUploadFile();
                 return;
             }
 
             if((fileSample.size/1024)>500) {
-                console.log("file size is too big!");
+                console.log("File size is too big!");
+                setFileError("File size is too big!");
                 removeUploadFile();
                 return;
             }
 
             setFile(fileSample);
-            setFileUrl(URL.createObjectURL(fileSample));
+            const avatarUrl=URL.createObjectURL(fileSample);
+            setFileUrl(avatarUrl);
+            setAvatarUrl(avatarUrl);
+            setFileError("");
         }
     }
 
@@ -39,9 +44,12 @@ export default function FileUploader() {
     function removeUploadFile() {
         setFile(null);
         setFileUrl("");
+        setAvatarUrl("");
     }
+
     return(
         <div>
+            <label className="input-label" htmlFor="drop-zone">Upload Avatar</label>
             <div className="drop-zone">
                 {!file&&(
                     <>
