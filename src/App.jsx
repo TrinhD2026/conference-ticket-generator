@@ -1,10 +1,10 @@
 import {useState,useRef} from 'react';
 import './App.css';
-import FileUploader from './components/FileUploader';
-import Ticket from './components/Ticket';
+import FileUploader from './components/FileUploader.jsx';
+import Ticket from './components/Ticket.jsx';
 
 function App() {
-    const [filePath,setFilePath]=useState("");
+    const [avatarUrl,setAvatarUrl]=useState("");
 
     const [ticketValid,setTicketValid]=useState(false);
     const [fullname,setFullname]=useState("");
@@ -19,7 +19,7 @@ function App() {
 
     const fileInstruction="Upload your photo (JPG or PNG, max size: 500KB).";
     const emailPattern=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const gitNamePattern=/^[@]?[a-zA-Z0-9-]*$/;
+    const gitNamePattern=/^[@][a-zA-Z0-9-]*$/;
 
     function validateForm() {
         let results={
@@ -29,7 +29,7 @@ function App() {
             "gitName": false,
         };
 
-        if(!filePath.trim()) {
+        if(!avatarUrl.trim()) {
             setFileError("Please select your avatar");
         }
         else {
@@ -95,10 +95,10 @@ function App() {
                 </>}
             </div>
 
-            {ticketValid&&<Ticket email={email} fullname={fullname} gitName={gitName} />}
+            {ticketValid&&<Ticket avatarUrl={avatarUrl} fullname={fullname} gitName={gitName} />}
             {!ticketValid&&
                 <form>
-                    <FileUploader setAvatarUrl={setFilePath} setFileError={setFileError} />
+                    <FileUploader setAvatarUrl={setAvatarUrl} setFileError={setFileError} />
                     {
                         fileError!==""&&
                         <div className="input-note">
@@ -107,7 +107,7 @@ function App() {
                         </div>
                     }
                     {
-                        fileError===""&&filePath===""&&
+                        fileError===""&&avatarUrl===""&&
                         <div className="input-note">
                             <img src="/icon-info.svg" alt="info icon" />
                             <p>{fileInstruction}</p>

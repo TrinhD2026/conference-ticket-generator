@@ -49,14 +49,14 @@ html {
 body {
     min-height: 100vh;
     font-family: 'Inconsolata Bold', sans-serif;
-    background-color: var(--neutral-900);
-    background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"), url("/pattern-squiggly-line-bottom-mobile-tablet.svg"), url("/pattern-squiggly-line-top.svg");
-    background-repeat: no-repeat,no-repeat, no-repeat, no-repeat;
+    background-image:url("/pattern-lines.svg"), url("/pattern-circle.svg"), url("/pattern-squiggly-line-bottom-mobile-tablet.svg"), url("/pattern-squiggly-line-top.svg"), url("/background-mobile.png");
+    background-repeat: no-repeat,no-repeat,no-repeat, no-repeat, repeat;
     background-position:
     center center,
     right center,
     left bottom,
-    right top;
+    right top,
+    center center;
     color: var(--neutral-0);
 }
 
@@ -88,13 +88,39 @@ button{
     font-size: 1rem;
 }
 
+.input-label{
+    margin: 1.5rem 0 0.5rem 0;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   a, button {
     transition: all 0.3s ease-out;
   }
 }
+
+@media screen and (width >= 40rem){
+    body{
+        padding: 2rem;
+        background-image:url("/pattern-lines.svg"), url("/pattern-circle.svg"), url("/pattern-squiggly-line-bottom-mobile-tablet.svg"), url("/pattern-squiggly-line-top.svg"), url("/background-tablet.png");
+        background-repeat: no-repeat,no-repeat,no-repeat, no-repeat, repeat;
+        background-position:
+        center center,
+        right center,
+        left bottom,
+        right top,
+        center center;
+    }
+}
 @media screen and (width >= 52rem){
     body{
         padding: 2rem;
+        background-image:url("/pattern-lines.svg"), url("/pattern-circle.svg"), url("/pattern-squiggly-line-bottom-mobile-tablet.svg"), url("/pattern-squiggly-line-top.svg"), url("/background-desktop.png");
+        background-repeat: no-repeat,no-repeat,no-repeat, no-repeat, repeat;
+        background-position:
+        center center,
+        right center,
+        left bottom,
+        right top,
+        center center;
     }
 }

@@ -64,9 +64,10 @@ export default function FileUploader({setAvatarUrl=null, setFileError=null}) {
         setAvatarUrl(avatarUrl);
         setFileError("");
     }
+
     return(
-        <div>
-            <label className="input-label" htmlFor="drop-zone">Upload Avatar</label>
+        <>
+            <label htmlFor="drop-zone">Upload Avatar</label>
             <div className="drop-zone" onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}>
                 {!file&&(
                     <>
@@ -92,6 +93,6 @@ export default function FileUploader({setAvatarUrl=null, setFileError=null}) {
                 id="image-upload"
                 name="image-upload"
                 accept=".jpg, .png" />
-        </div>
+        </>
     )
 };
