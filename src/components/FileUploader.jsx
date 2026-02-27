@@ -13,26 +13,7 @@ export default function FileUploader({setAvatarUrl=null, setFileError=null}) {
         if(e.target.files.length>0) {
             const fileSample=e.target.files[0];
             e.target.value=null;
-
-            if(!typePattern.test(fileSample.type)) {
-                console.log("File type is not correct");
-                setFileError("File type is not correct!");
-                removeUploadFile();
-                return;
-            }
-
-            if((fileSample.size/1024)>500) {
-                console.log("File size is too big!");
-                setFileError("File size is too big!");
-                removeUploadFile();
-                return;
-            }
-
-            setFile(fileSample);
-            const avatarUrl=URL.createObjectURL(fileSample);
-            setFileUrl(avatarUrl);
-            setAvatarUrl(avatarUrl);
-            setFileError("");
+            handleFileSelected(fileSample);
         }
     }
 
@@ -46,11 +27,47 @@ export default function FileUploader({setAvatarUrl=null, setFileError=null}) {
         setFileUrl("");
         setAvatarUrl("");
     }
+    function handleDrop(ev) {
+        console.log("fileDrop");
+        ev.preventDefault();
+        const fileSample=ev.dataTransfer.items[0].getAsFile();
+        handleFileSelected(fileSample);
+    }
 
+    const handleDragEnter=(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    const handleDragOver=(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
+    function handleFileSelected(fileSample) {
+        if(!typePattern.test(fileSample.type)) {
+            console.log("File type is not correct");
+            setFileError("File type is not correct! Upload your photo (JPG or PNG, max size: 500KB)!");
+            removeUploadFile();
+            return;
+        }
+
+        if((fileSample.size/1024)>500) {
+            console.log("File size is too big!");
+            setFileError("File size is too big! Upload your photo (JPG or PNG, max size: 500KB)!");
+            removeUploadFile();
+            return;
+        }
+
+        setFile(fileSample);
+        const avatarUrl=URL.createObjectURL(fileSample);
+        setFileUrl(avatarUrl);
+        setAvatarUrl(avatarUrl);
+        setFileError("");
+    }
     return(
         <div>
             <label className="input-label" htmlFor="drop-zone">Upload Avatar</label>
-            <div className="drop-zone">
+            <div className="drop-zone" onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}>
                 {!file&&(
                     <>
                         <label className="image-upload-label" htmlFor="image-upload"><img src="icon-upload.svg" alt="upload icon" /></label>
