@@ -28,8 +28,13 @@
     width: 4rem;
     border-radius: 0.5rem;
 }
-
-.image-upload-label{
+.drop-zone button:hover,.drop-zone button:focus{
+    opacity: 0.8;
+}
+.drop-zone button:active{
+    opacity: 0.6;
+}
+.image-upload-btn{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,25 +42,15 @@
     background-color: var(--black-03);
     cursor: pointer;
     border-radius: 0.5rem;
+    border:0.12rem solid var(--neutral-700);
 }
 
-.image-upload-label img{
+.image-upload-btn img{
     width: 2rem;
     margin: 0 0.5rem;
 }
 
-.image-upload-label:hover,.image-upload-label:focus{
-    opacity: 0.8;
-}
-
-.change-img-label{
-    border-radius: 0.3rem;
-    padding: 0.3rem 0.4rem;
-    cursor: pointer;
-    background-color: var(--black-03);
-}
-
-.remove-img-btn{
+.remove-change-btn{
     padding: 0.3rem 0.4rem;
     border-radius: 0.3rem;
     background-color: var(--black-03);

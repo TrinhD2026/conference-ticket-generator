@@ -10,8 +10,17 @@
 
 .header p{
     color: var(--neutral-300);
+    font-family: 'Inconsolata Regular', sans-serif;
 }
 
+.header .congrat-fullname {
+    background:var(--gradient-orange);
+    color:transparent;
+    background-clip:text;
+}
+.header .congrat-email{
+    color: var(--orange-500);
+}
 input{
   font-size:1rem;
     font-family: 'Inconsolata Bold', sans-serif;
@@ -79,18 +88,4 @@ form{
 }
 .generate-btn:active{
     opacity: 0.6;
-}
-
-.transparent-btn{
-    background-color: transparent;
-    border:0;
-    padding: 0;
-}
-
-.transparent-btn:hover, .transparent-btn:focus{
-    opacity: 0.6;
-}
-
-.transparent-btn:active{
-    opacity: 0.4;
 }

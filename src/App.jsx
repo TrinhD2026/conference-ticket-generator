@@ -90,7 +90,7 @@ function App() {
                 </>}
                 {ticketValid&&
                 <>
-                    <h2>Congrats, <span className="congrat-fullname">{fullname}!</span> your ticket is ready.</h2>
+                    <h2>Congrats, <span className="congrat-fullname">{fullname}!</span> Your ticket is ready.</h2>
                     <p>We've emailed your ticket to <span className="congrat-email">{email}</span> and will send updates in the run up to the event</p>
                 </>}
             </div>

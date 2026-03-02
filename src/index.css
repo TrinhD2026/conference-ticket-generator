@@ -31,7 +31,7 @@
     --black-03: rgba(100, 100, 100, 0.3);
     --black-05: rgba(100, 100, 100, 0.5);
 
-    --text-gradient: linear-gradient(hsl(7, 86%, 67%), hsl(0, 0%, 100%));
+    --gradient-orange: linear-gradient(90deg,hsl(7, 86%, 67%), hsl(0, 0%, 100%));
 }
 
 html {
@@ -80,6 +80,7 @@ a{
 
 h2{
     margin-bottom: 0.5rem;
+    font-size: 2rem;
 }
 
 button{
@@ -122,5 +123,11 @@ button{
         left bottom,
         right top,
         center center;
+    }
+    h2{
+        font-size:3rem;
+    }
+    p{
+        font-size:1.2rem;
     }
 }

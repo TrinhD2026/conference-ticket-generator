@@ -1,9 +1,14 @@
-import {useState} from "react";
+import {useState, useRef} from "react";
 import './FileUploader.css'
 
 export default function FileUploader({setAvatarUrl=null, setFileError=null}) {
     const [file,setFile]=useState(null);
     const [fileUrl,setFileUrl]=useState("");
+    const fileInput=useRef(null);
+    const uploadImgBtn=useRef(null);
+    const changeImgBtn=useRef(null);
+    const removeImgBtn=useRef(null);
+
     console.log("reloading..........");
 
     const typePattern=/^[a-zA-Z0-9]*(.)(jpg|jpeg|png)$/;
@@ -20,6 +25,7 @@ export default function FileUploader({setAvatarUrl=null, setFileError=null}) {
     function handleRemoveButtonClick(e) {
         e.preventDefault();
         removeUploadFile();
+        removeImgBtn.current.blur();
     }
 
     function removeUploadFile() {
@@ -65,13 +71,26 @@ export default function FileUploader({setAvatarUrl=null, setFileError=null}) {
         setFileError("");
     }
 
+    function handleUploadImageClick(e) {
+        e.preventDefault();
+        fileInput.current.click();
+        uploadImgBtn.current.blur();
+
+    }
+
+    function handleChangeImageClick(e) {
+        e.preventDefault();
+        fileInput.current.click();
+        changeImgBtn.current.blur();
+    }
+
     return(
         <>
             <label htmlFor="drop-zone">Upload Avatar</label>
             <div className="drop-zone" onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}>
                 {!file&&(
                     <>
-                        <label className="image-upload-label" htmlFor="image-upload"><img src="icon-upload.svg" alt="upload icon" /></label>
+                        <button ref={uploadImgBtn} className="image-upload-btn" onClick={handleUploadImageClick} type="button"><img src="icon-upload.svg" alt="upload icon" /></button>
                         <p>Drop and drag or click to upload</p>
                     </>
                 )}
@@ -80,14 +99,15 @@ export default function FileUploader({setAvatarUrl=null, setFileError=null}) {
                     <>
                         <img src={fileUrl} alt="avatar image" />
                         <div>
-                            <button className="remove-img-btn" onClick={handleRemoveButtonClick}>Remove image</button>
-                            <label htmlFor="image-upload" className="change-img-label">Change image</label>
+                            <button ref={removeImgBtn} className="remove-change-btn" onClick={handleRemoveButtonClick}>Remove image</button>
+                            <button ref={changeImgBtn} onClick={handleChangeImageClick} className="remove-change-btn" type="button">Change image</button>
                         </div>
                     </>
                 )}
             </div>
 
             <input type="file"
+                ref={fileInput}
                 onChange={handleFileChange}
                 className="input-file"
                 id="image-upload"
